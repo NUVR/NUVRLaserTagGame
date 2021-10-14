@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.nuvrlasertag.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\VRAdmin\\Documents\\NUVRLaserTag\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\Student7\\Downloads\\NUVRLaserTagGame-main (1)\\NUVRLaserTagGame-main\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "NUVRLaserTag [Testing]"
