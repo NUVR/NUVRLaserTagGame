@@ -1461,6 +1461,7 @@ namespace Valve.VR.InteractionSystem
                 }
 
                 if (explicitType == GrabTypes.Pinch && grabPinchAction.GetStateDown(handType))
+                    Debug.Log("Reached line 1464");
                     return GrabTypes.Pinch;
                 if (explicitType == GrabTypes.Grip && grabGripAction.GetStateDown(handType))
                     return GrabTypes.Grip;
@@ -1476,9 +1477,17 @@ namespace Valve.VR.InteractionSystem
                 }
 
                 if (grabPinchAction != null && grabPinchAction.GetStateDown(handType))
+                {
+                    Debug.Log("Reached line 1480");
                     return GrabTypes.Pinch;
+                }
+
                 if (grabGripAction != null && grabGripAction.GetStateDown(handType))
+                {
+                    Debug.Log("Reached line 1483");
                     return GrabTypes.Grip;
+                }
+
             }
 
             return GrabTypes.None;
@@ -1488,6 +1497,7 @@ namespace Valve.VR.InteractionSystem
         {
             if (explicitType != GrabTypes.None)
             {
+                Debug.Log("Reached line 1500");
                 if (noSteamVRFallbackCamera)
                 {
                     if (Input.GetMouseButtonUp(0))
@@ -1496,10 +1506,16 @@ namespace Valve.VR.InteractionSystem
                         return GrabTypes.None;
                 }
 
-                if (explicitType == GrabTypes.Pinch && grabPinchAction.GetStateUp(handType))
+                if (explicitType == GrabTypes.Pinch && grabPinchAction.GetStateUp(handType)) { 
+                    Debug.Log("Reached line 1510");
                     return GrabTypes.Pinch;
+                }
+                   
                 if (explicitType == GrabTypes.Grip && grabGripAction.GetStateUp(handType))
+                {
+                    Debug.Log("Reached line 1515");
                     return GrabTypes.Grip;
+                }
             }
             else
             {
@@ -1522,6 +1538,7 @@ namespace Valve.VR.InteractionSystem
 
         public bool IsGrabEnding(GameObject attachedObject)
         {
+            Debug.Log("Reached line 1541");
             for (int attachedObjectIndex = 0; attachedObjectIndex < attachedObjects.Count; attachedObjectIndex++)
             {
                 if (attachedObjects[attachedObjectIndex].attachedObject == attachedObject)
@@ -1558,6 +1575,7 @@ namespace Valve.VR.InteractionSystem
 
         public bool IsGrabbingWithOppositeType(GrabTypes type)
         {
+            Debug.Log("Reached line 1578");
             if (noSteamVRFallbackCamera)
             {
                 if (Input.GetMouseButton(0))
@@ -1581,11 +1599,13 @@ namespace Valve.VR.InteractionSystem
 
         public GrabTypes GetBestGrabbingType()
         {
+            Debug.Log("Reached line 1602");
             return GetBestGrabbingType(GrabTypes.None);
         }
 
         public GrabTypes GetBestGrabbingType(GrabTypes preferred, bool forcePreference = false)
         {
+            Debug.Log("Reached line 1608");
             if (noSteamVRFallbackCamera)
             {
                 if (Input.GetMouseButton(0))
