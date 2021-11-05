@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using UnityEngine.Events;
 using System.Threading;
 
+
 namespace Valve.VR.InteractionSystem
 {
     //-------------------------------------------------------------------------
@@ -20,6 +21,7 @@ namespace Valve.VR.InteractionSystem
     //-------------------------------------------------------------------------
     public class Hand : MonoBehaviour
     {
+        public Handactions first;
         // The flags used to determine how an object is attached to the hand.
         [Flags]
         public enum AttachmentFlags
@@ -113,7 +115,7 @@ namespace Valve.VR.InteractionSystem
                 return (attachmentFlags & flag) == flag;
             }
         }
-
+       
         private List<AttachedObject> attachedObjects = new List<AttachedObject>();
 
         public ReadOnlyCollection<AttachedObject> AttachedObjects
@@ -1099,6 +1101,10 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         protected virtual void Update()
         {
+            if (grabPinchAction.GetStateDown(handType))
+            {
+                Debug.Log("is down");
+            }
             UpdateNoSteamVRFallback();
 
             GameObject attachedObject = currentAttachedObject;
@@ -1450,6 +1456,8 @@ namespace Valve.VR.InteractionSystem
 
         public GrabTypes GetGrabStarting(GrabTypes explicitType = GrabTypes.None)
         {
+            first.grabStart();
+            Debug.Log("grab starting");
             if (explicitType != GrabTypes.None)
             {
                 if (noSteamVRFallbackCamera)
@@ -1461,7 +1469,6 @@ namespace Valve.VR.InteractionSystem
                 }
 
                 if (explicitType == GrabTypes.Pinch && grabPinchAction.GetStateDown(handType))
-                    Debug.Log("Reached line 1464");
                     return GrabTypes.Pinch;
                 if (explicitType == GrabTypes.Grip && grabGripAction.GetStateDown(handType))
                     return GrabTypes.Grip;

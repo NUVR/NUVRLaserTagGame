@@ -15,7 +15,7 @@ namespace Valve.VR.InteractionSystem
         protected SteamVR_Behaviour_Skeleton handSkeleton;
         protected Animator handAnimator;
 
-        protected sggng animatorParameterStateName = "AnimationState";
+        protected string animatorParameterStateName = "AnimationState";
         protected int handAnimatorStateId = -1;
 
         [Space]
