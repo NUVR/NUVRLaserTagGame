@@ -1348,3 +1348,4 @@ Received Import Request.
 Start importing Assets/SteamVR/Input/SteamVR_Skeleton_Pose.cs using Guid(e90911e410742a1498a167540c7865bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7c871cd1ae945329376320eb79c9308') in 0.006000 seconds
   Import took 0.010096 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
