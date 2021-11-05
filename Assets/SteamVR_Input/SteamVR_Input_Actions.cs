@@ -76,6 +76,7 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.p_default_GrabPinch.GetCopy<SteamVR_Action_Boolean>();
+                Debug.Log("Grab pinch");
             }
         }
         
@@ -84,6 +85,7 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.p_default_GrabGrip.GetCopy<SteamVR_Action_Boolean>();
+                Debug.Log("Grab grip");
             }
         }
         
@@ -116,6 +118,7 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.p_default_Squeeze.GetCopy<SteamVR_Action_Single>();
+                Debug.Log("Squeeze");
             }
         }
         
