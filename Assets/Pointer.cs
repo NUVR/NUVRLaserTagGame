@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
+   public GameObject chicken;
 
 
     // Start is called before the first frame update
@@ -20,12 +21,14 @@ public class Pointer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hit");
-        if (other.gameObject.tag == "Cookable")
+        //chicken.SetActive(false);
+
+        Debug.Log(other.gameObject.tag);
+       if (other.tag == "Cookable")
         {
      
-            other.gameObject.active = false;
+            other.gameObject.SetActive(false);
 
-        }
+      }
     }
 }
