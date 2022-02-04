@@ -21,6 +21,8 @@ namespace Valve.VR.InteractionSystem
     //-------------------------------------------------------------------------
     public class Hand : MonoBehaviour
     {
+        public GameObject handWithLaser; //make ref. in inspector window
+
         public Handactions first;
         // The flags used to determine how an object is attached to the hand.
         [Flags]
@@ -115,7 +117,7 @@ namespace Valve.VR.InteractionSystem
                 return (attachmentFlags & flag) == flag;
             }
         }
-       
+
         private List<AttachedObject> attachedObjects = new List<AttachedObject>();
 
         public ReadOnlyCollection<AttachedObject> AttachedObjects
@@ -138,6 +140,15 @@ namespace Valve.VR.InteractionSystem
         private GameObject applicationLostFocusObject;
 
         private SteamVR_Events.Action inputFocusAction;
+
+        public float firerRate = 0.25f;
+        public float weaponRange = 50f;
+        public GameObject gunOrigin;
+        private WaitForSeconds shotDuration = new WaitForSeconds(0.7f);
+
+        private LineRenderer shoot_line;
+        private float fireTime;
+
 
         public bool isActive
         {
@@ -848,6 +859,8 @@ namespace Valve.VR.InteractionSystem
 
                 yield return null;
             }
+
+            shoot_line = GetComponent<LineRenderer>();
         }
 
 
@@ -1101,9 +1114,28 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         protected virtual void Update()
         {
-            if (grabPinchAction.GetStateDown(handType))
+            if (grabPinchAction.GetStateDown(handType) && Time.time >= fireTime)
             {
+                handWithLaser.SetActive(true);
                 Debug.Log("is down");
+                fireTime = Time.time + fireTime;
+                StartCoroutine(ShootAction());
+                Vector3 rayOrigin = gunOrigin.transform.position;
+                RaycastHit hit;
+                shoot_line.SetPosition(0, gunOrigin.transform.position);
+
+                if (Physics.Raycast(rayOrigin, gunOrigin.transform.forward, out hit, weaponRange))
+                {
+                    shoot_line.SetPosition(1, hit.point);
+
+                }
+                else
+                {
+                    shoot_line.SetPosition(1, rayOrigin + gunOrigin.transform.forward * weaponRange);
+                }
+
+
+
             }
             UpdateNoSteamVRFallback();
 
@@ -1117,6 +1149,23 @@ namespace Valve.VR.InteractionSystem
             {
                 hoveringInteractable.SendMessage("HandHoverUpdate", this, SendMessageOptions.DontRequireReceiver);
             }
+        }
+
+        public GameObject laser;
+        public void shoot()
+        {
+            GameObject l;
+            l = Instantiate(laser, new Vector3(0, 0, 0), new Quaternion(90, 0, 0, 0), this.transform);
+        }
+
+        private IEnumerator ShootAction()
+        {
+            shoot_line.enabled = true;
+
+            yield return shotDuration;
+
+            shoot_line.enabled = false;
+
         }
 
         /// <summary>
@@ -1513,11 +1562,12 @@ namespace Valve.VR.InteractionSystem
                         return GrabTypes.None;
                 }
 
-                if (explicitType == GrabTypes.Pinch && grabPinchAction.GetStateUp(handType)) { 
+                if (explicitType == GrabTypes.Pinch && grabPinchAction.GetStateUp(handType))
+                {
                     Debug.Log("Reached line 1510");
                     return GrabTypes.Pinch;
                 }
-                   
+
                 if (explicitType == GrabTypes.Grip && grabGripAction.GetStateUp(handType))
                 {
                     Debug.Log("Reached line 1515");
