@@ -1114,15 +1114,22 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         protected virtual void Update()
         {
+            Debug.Log(grabPinchAction.GetStateDown(handType));
             if (grabPinchAction.GetStateDown(handType))
             {
-                handWithLaser.SetActive(true);
+                Debug.Log("entered");
+                if (handWithLaser != null) { 
+                    handWithLaser.SetActive(true);
+                }
+                Debug.Log("exited");
             }
-          /*if (!grabPinchAction.GetStateDown(handType))
+         /*   else if (!grabPinchAction.GetStateDown(handType) && handWithLaser != null)
             {
-                handWithLaser.SetActive(false);
+                Debug.Log("entered2");
+                    handWithLaser.SetActive(false);
+                Debug.Log("exited2");
             }*/
-        
+
             /*  Debug.Log("is down");
               fireTime = Time.time + fireTime;
               StartCoroutine(ShootAction());
