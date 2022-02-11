@@ -1114,29 +1114,35 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         protected virtual void Update()
         {
-            if (grabPinchAction.GetStateDown(handType) && Time.time >= fireTime)
+            if (grabPinchAction.GetStateDown(handType))
             {
                 handWithLaser.SetActive(true);
-                Debug.Log("is down");
-                fireTime = Time.time + fireTime;
-                StartCoroutine(ShootAction());
-                Vector3 rayOrigin = gunOrigin.transform.position;
-                RaycastHit hit;
-                shoot_line.SetPosition(0, gunOrigin.transform.position);
-
-                if (Physics.Raycast(rayOrigin, gunOrigin.transform.forward, out hit, weaponRange))
-                {
-                    shoot_line.SetPosition(1, hit.point);
-
-                }
-                else
-                {
-                    shoot_line.SetPosition(1, rayOrigin + gunOrigin.transform.forward * weaponRange);
-                }
-
-
-
             }
+          /*if (!grabPinchAction.GetStateDown(handType))
+            {
+                handWithLaser.SetActive(false);
+            }*/
+        
+            /*  Debug.Log("is down");
+              fireTime = Time.time + fireTime;
+              StartCoroutine(ShootAction());
+              Vector3 rayOrigin = gunOrigin.transform.position;
+              RaycastHit hit;
+              shoot_line.SetPosition(0, gunOrigin.transform.position);
+
+              if (Physics.Raycast(rayOrigin, gunOrigin.transform.forward, out hit, weaponRange))
+              {
+                  shoot_line.SetPosition(1, hit.point);
+
+              }
+              else
+              {
+                  shoot_line.SetPosition(1, rayOrigin + gunOrigin.transform.forward * weaponRange);
+              }
+
+
+
+        }
             UpdateNoSteamVRFallback();
 
             GameObject attachedObject = currentAttachedObject;
@@ -1148,10 +1154,10 @@ namespace Valve.VR.InteractionSystem
             if (hoveringInteractable)
             {
                 hoveringInteractable.SendMessage("HandHoverUpdate", this, SendMessageOptions.DontRequireReceiver);
-            }
+            }*/
         }
 
-        public GameObject laser;
+      /*public GameObject laser;
         public void shoot()
         {
             GameObject l;
@@ -1167,7 +1173,7 @@ namespace Valve.VR.InteractionSystem
             shoot_line.enabled = false;
 
         }
-
+*/
         /// <summary>
         /// Returns true when the hand is currently hovering over the interactable passed in
         /// </summary>
