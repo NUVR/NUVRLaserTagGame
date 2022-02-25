@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class turkeyspawner : MonoBehaviour
+public class appleSpawner : MonoBehaviour
 {
-    public GameObject turkey;
+    public GameObject apple;
     private int rand;
     private int rand2;
     //public Vector3 direction;
@@ -21,10 +21,10 @@ public class turkeyspawner : MonoBehaviour
     void again()
     {
 
-        GameObject go = GameObject.Instantiate(turkey);
+        GameObject go = GameObject.Instantiate(apple);
         go.GetComponent<movementscript>().isMoving = true;
         rand = Random.Range(-3, 3);
-        go.transform.position += new Vector3(0, 1.5f, (float)rand/2);
+        go.transform.position += new Vector3((float)rand / 2, 1.5f,0);
         StartCoroutine(TurkeyWait());
     }
 

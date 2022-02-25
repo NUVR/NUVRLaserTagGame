@@ -5,6 +5,8 @@ using UnityEngine;
 public class movementscript : MonoBehaviour
 {
  public bool isMoving=false;
+    public float XMov;
+    public float ZMov;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,6 @@ public class movementscript : MonoBehaviour
     void FixedUpdate()
     {
         if(isMoving)
-        gameObject.transform.position = new Vector3(-0.01f+ gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        gameObject.transform.position = new Vector3(XMov + gameObject.transform.position.x, gameObject.transform.position.y, ZMov + gameObject.transform.position.z);
     }
 }
